@@ -1,5 +1,6 @@
 const reqHandler = require('./request-handler.js');
 const alerts = require('./alerts.js');
+const test = require('../test.js');
 
 const { HOW_OFTEN, DELIVER_TO, HOW_MANY, SOURCE_TYPE } = alerts;
 const config = { mail: '', password: ''};
@@ -31,11 +32,11 @@ function setCookies(cookies){
     reqHandler.setCookies(JSON.parse(cookies));
 }
 
-function configure({mail, password, cookies}) {
+function configure({mail, password, cookies, isAuthenticated}) {
     config.mail = mail;
     config.password = password;
     config.cookies = (cookies && parseCookies(cookies)) || null;
-    isAuthenticated = false;
+    isAuthenticated = isAuthenticated || false;
     reqHandler.removeCookies();
 }
 

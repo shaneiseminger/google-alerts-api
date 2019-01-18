@@ -14,22 +14,27 @@ nconf.argv()
 
 const MAIL = 'ffmpeg3@gmail.com';
 const PASSWORD = nconf.get('password');
-const COOKIES = nconf.get('cookies');
+let COOKIES = nconf.get('cookies');
 
 const NAME = generateRandomName();
 const MODIFIED_NAME = NAME + ' modified';
 
-xdescribe('generateCookies', function() {
+describe('generateCookies', function() {
     this.timeout(TIMEOUT_MS);
     it('generateCookies', done => {
-        api.generateCookies(MAIL, PASSWORD, (err, cookies) => {
-            if(err) return console.log(err);
-            fs.writeFileSync('cookies.data', cookies);
-            done()
+        api.generateCookies2(MAIL, PASSWORD, (err, cookies) => {
+            console.log(cookies);
+            api.configure({
+                cookies
+            });
+            api.sync((err) => {
+                console.log(api.getAlerts())
+                done();
+            });
         });
-    })
+    });
 })
-
+/*
 xdescribe('username / password login', function() {
     this.timeout(TIMEOUT_MS);
     it('username / password login', done => {
@@ -245,7 +250,7 @@ describe('google', function() {
            
     });
 });
-
+*/
 function generateRandomName() {
     return 'alert-name-' + (+new Date());
 }

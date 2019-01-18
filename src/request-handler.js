@@ -28,7 +28,7 @@ function setCookies(cookies) {
 
 function rememberCookies(cookies) {
     parsedCookies = [];
-    cookies.forEach(cookie => {
+    cookies.forEach(cookie => {        
         var newCookie = {};
         newCookie.key = cookie.key;
         newCookie.value = cookie.value;
@@ -48,11 +48,7 @@ function applyCookies(cookies) {
         var newCookie = request.cookie(`${cookie.key}=${cookie.value}`);
         newCookie.key = cookie.key;
         newCookie.value = cookie.value;
-        newCookie.path = cookie.path;
         newCookie.domain = cookie.domain;
-        newCookie.creation = cookie.creation;
-        newCookie.lastAccessed = cookie.lastAccessed;
-        newCookie.hostOnly = cookie.hostOnly;
         jar.setCookie(newCookie, COOKIES_URL);
     });
 }
